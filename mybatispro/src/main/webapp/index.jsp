@@ -1,4 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
     <title>慕课网用户管理中心</title>
@@ -34,21 +36,34 @@
                     <th>用户状态</th>
                     <th>操作</th>
                 </tr>
-                <tr>
-                    <td>1</td>
-                    <td>admin</td>
-                    <td>小木</td>
-                    <td>xiaomu@gmail.com</td>
-                    <td>1888888888</td>
-                    <td>2018-10-14</td>
-                    <td>正常</td>
-                    <td>
-                        <a href="">查看</a>
-                        <a href="">修改</a>
-                        <a href="">删除</a>
 
-                    </td>
-                </tr>
+                <c:forEach  items="${usersList}" var="user">
+                    <tr>
+                        <td>${user.id}</td>
+                        <td>${user.username}</td>
+                        <td>${user.nickname}</td>
+                        <td>${user.email}</td>
+                        <td>${user.phone}</td>
+                        <td>${user.createTime}</td>
+                        <c:if test="${user.userStatus == 0}">
+                            <td>正常</td>
+                        </c:if>
+                        <c:if test="${user.userStatus == 1}">
+                            <td>锁定</td>
+                        </c:if>
+                        <c:if test="${user.userStatus == 2}">
+                            <td>删除</td>
+                        </c:if>
+
+                        <td>
+                            <a href="${pageContext.request.contextPath}/detail?id=${user.id}">查看</a>
+                            <a href="">修改</a>
+                            <a href="">删除</a>
+
+                        </td>
+                    </tr>
+                </c:forEach>
+
             </table>
         </div>
     </div>
